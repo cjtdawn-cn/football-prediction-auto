@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
   "created_at": "2026-05-25T16:07:31.024317",
-  "last_updated": "2026-05-25T21:30:33.905177",
-  "total_matches_recorded": 2256,
-  "total_matches_correct": 1123,
+  "last_updated": "2026-05-25T23:39:04.146346+08:00",
+  "total_matches_recorded": 0,
+  "total_matches_correct": 0,
   "fusion_weights": {
     "ml": {
       "value": 0.25027713905423077,
@@ -777,28 +777,28 @@
   },
   "rolling_performance": {
     "last_7_days": {
-      "total": 3,
-      "correct": 2,
-      "accuracy": 0.6666666666666666,
-      "avg_brier": 0.1932757653314077
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0,
+      "avg_brier": 0
     },
     "last_30_days": {
-      "total": 3,
-      "correct": 2,
-      "accuracy": 0.6666666666666666,
-      "avg_brier": 0.1932757653314077
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0,
+      "avg_brier": 0
     },
     "last_90_days": {
-      "total": 3,
-      "correct": 2,
-      "accuracy": 0.6666666666666666,
-      "avg_brier": 0.1932757653314077
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0,
+      "avg_brier": 0
     },
     "all_time": {
-      "total": 39458,
-      "correct": 19664,
-      "accuracy": 0.49835267879770895,
-      "avg_brier": 0.20287591794548723
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0,
+      "avg_brier": 0
     }
   },
   "pruning": {
