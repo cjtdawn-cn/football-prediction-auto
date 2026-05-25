@@ -1,0 +1,326 @@
+{
+  "version": "1.0.0",
+  "created_at": "2026-05-25T15:34:20.164412",
+  "last_updated": "2026-05-25T15:34:20.165074",
+  "total_matches_recorded": 0,
+  "total_matches_correct": 0,
+  "fusion_weights": {
+    "ml": {
+      "value": 0.25,
+      "min_bound": 0.08,
+      "max_bound": 0.4,
+      "learning_rate": 0.03,
+      "history": []
+    },
+    "elo": {
+      "value": 0.14,
+      "min_bound": 0.03,
+      "max_bound": 0.3,
+      "learning_rate": 0.03,
+      "history": []
+    },
+    "h2h": {
+      "value": 0.07,
+      "min_bound": 0.02,
+      "max_bound": 0.18,
+      "learning_rate": 0.02,
+      "history": []
+    },
+    "market": {
+      "value": 0.35,
+      "min_bound": 0.15,
+      "max_bound": 0.6,
+      "learning_rate": 0.03,
+      "history": []
+    },
+    "baseline": {
+      "value": 0.12,
+      "min_bound": 0.02,
+      "max_bound": 0.2,
+      "learning_rate": 0.01,
+      "history": []
+    },
+    "spirit": {
+      "value": 0.07,
+      "min_bound": 0.0,
+      "max_bound": 0.15,
+      "learning_rate": 0.01,
+      "history": []
+    }
+  },
+  "ensemble_submodel": {
+    "xgb": 0.4,
+    "rf": 0.3,
+    "lgb": 0.3
+  },
+  "draw_detection": {
+    "rules": [
+      {
+        "id": "prob_gap",
+        "description": "|P_home-P_away|<gap AND P_draw>floor",
+        "thresholds": {
+          "gap": 0.07,
+          "draw_floor": 0.22
+        },
+        "enabled": true,
+        "weight": 0.4,
+        "hit_count": 0,
+        "miss_count": 0,
+        "last_updated": null
+      },
+      {
+        "id": "elo_gap",
+        "description": "|elo_diff|<elo_gap AND P_draw>floor",
+        "thresholds": {
+          "elo_gap": 60,
+          "draw_floor": 0.24
+        },
+        "enabled": true,
+        "weight": 0.35,
+        "hit_count": 0,
+        "miss_count": 0,
+        "last_updated": null
+      },
+      {
+        "id": "xg_low",
+        "description": "total_xg<max_xg AND |home_xg-away_xg|<xg_gap",
+        "thresholds": {
+          "max_xg": 2.2,
+          "xg_gap": 0.6
+        },
+        "enabled": true,
+        "weight": 0.25,
+        "hit_count": 0,
+        "miss_count": 0,
+        "last_updated": null
+      }
+    ]
+  },
+  "feature_scores": {
+    "elo_diff": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "h_form5_pts": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "a_form5_pts": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "h_form3_pts": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "a_form3_pts": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "prob_h_implied": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "prob_d_implied": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "prob_a_implied": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "odd_h": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "odd_d": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "odd_a": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    },
+    "odd_margin": {
+      "usefulness": 0.5,
+      "permutation_importance": 0.0,
+      "availability_rate": 1.0,
+      "stability": 0.5,
+      "last_evaluated": null,
+      "flagged_for_removal": false,
+      "consecutive_below_threshold": 0,
+      "history": []
+    }
+  },
+  "league_performance": {
+    "英超": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "德甲": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "法甲": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "意甲": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "西甲": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "中超": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "J联赛": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "美职联": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "瑞典超": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "挪超": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    }
+  },
+  "rolling_performance": {
+    "last_7_days": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "last_30_days": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "last_90_days": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    },
+    "all_time": {
+      "total": 0,
+      "correct": 0,
+      "accuracy": 0.0,
+      "avg_brier": 0.0
+    }
+  },
+  "pruning": {
+    "result_retention_days": 365,
+    "feature_evaluation_min_matches": 50,
+    "feature_removal_usefulness_threshold": 0.15,
+    "feature_removal_consecutive_cycles": 5,
+    "last_prune_run": null
+  },
+  "calibration": {
+    "version": 1,
+    "last_computed": null,
+    "total_samples": 0,
+    "home_buckets": {},
+    "draw_buckets": {},
+    "away_buckets": {},
+    "league_adjustments": {},
+    "global_home_bias_correction": 1.0
+  }
+}
