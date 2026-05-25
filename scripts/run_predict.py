@@ -4,8 +4,20 @@
 从 today_matches.json 加载比赛列表, 运行预测, 输出到 docs/
 """
 import sys, os, json
+import numpy as np
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
+
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)
 
 # Add skill package to path
 SKILL_PATH = Path(__file__).parent.parent.parent / "football-prediction-skill"
@@ -125,7 +137,7 @@ def main():
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     result_path = RESULTS_DIR / f"{pred_date}.json"
-    result_path.write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding='utf-8')
+    result_path.write_text(json.dumps(results, indent=2, ensure_ascii=False, cls=NumpyEncoder), encoding='utf-8')
 
     # Generate report
     report = generate_full_report(predictions)
