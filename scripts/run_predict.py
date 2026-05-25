@@ -34,7 +34,7 @@ except ImportError:
 
 BASE = Path(__file__).parent.parent
 DATA_DIR = BASE / "data"
-RESULTS_DIR = BASE / "results"
+RESULTS_DIR = BASE / "models" / "results"  # 与 EvolutionEngine 统一路径
 DOCS_DIR = BASE / "docs"
 TODAY = os.environ.get("PREDICTION_DATE") or datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d")
 
@@ -161,12 +161,101 @@ def main():
     print(f"{'='*60}")
 
 
+def _component_bar(value, label, color='#4ecb71', max_w=20):
+    """生成组件贡献条"""
+    w = min(int(value * max_w), max_w)
+    return f'<span style="color:{color}">{label}: {"|" + "#" * w + "-" * (max_w - w) + "|"} {value:.1%}</span>'
+
+
+def _reasoning_text(p):
+    """生成单场比赛的推理说明"""
+    lines = []
+    home = p['home_team']
+    away = p['away_team']
+    pred = p['prediction']
+
+    # ML 组件
+    ml_h = p.get('ml_home', 0)
+    ml_line = f"ML集成模型(XGBoost+LightGBM+RF)预测主胜概率 {ml_h:.1%}"
+    lines.append(ml_line)
+
+    # Elo 组件
+    elo_h = p.get('elo_home', 0)
+    elo_diff = p.get('elo_diff', 0)
+    if elo_diff > 0:
+        elo_line = f"Elo评分: {home}高于{away} {elo_diff:.0f}分，主胜概率{elo_h:.1%}"
+    elif elo_diff < 0:
+        elo_line = f"Elo评分: {away}高于{home} {-elo_diff:.0f}分，主胜概率{elo_h:.1%}"
+    else:
+        elo_line = f"Elo评分: 两队实力接近 (差值{elo_diff:.0f})，主胜概率{elo_h:.1%}"
+    lines.append(elo_line)
+
+    # H2H
+    h2h = p.get('h2h_factor', 0.5)
+    if h2h > 0.55:
+        h2h_line = f"历史交锋: {home}占优 (H2H因子 {h2h:.2f})"
+    elif h2h < 0.45:
+        h2h_line = f"历史交锋: {away}占优 (H2H因子 {h2h:.2f})"
+    else:
+        h2h_line = f"历史交锋: 两队均势 (H2H因子 {h2h:.2f})"
+    lines.append(h2h_line)
+
+    # 战意
+    sh = p.get('spirit_h', 1.0)
+    sa = p.get('spirit_a', 1.0)
+    if sh > sa + 0.05:
+        lines.append(f"战意因子: {home}({sh:.2f}) > {away}({sa:.2f})，主队战意更强")
+    elif sa > sh + 0.05:
+        lines.append(f"战意因子: {away}({sa:.2f}) > {home}({sh:.2f})，客队战意更强")
+    else:
+        lines.append(f"战意因子: 两队接近 ({home} {sh:.2f}, {away} {sa:.2f})")
+
+    # 伤病
+    ih = p.get('inj_h', 0)
+    ia = p.get('inj_a', 0)
+    if ih > 0 or ia > 0:
+        lines.append(f"伤病影响: {home} -{ih:.1%}, {away} -{ia:.1%}")
+
+    # 赔率
+    lines.append(f"市场赔率隐含: 主{p.get('ml_home', 0):.1%}/平{p.get('draw_prob', 0):.1%}/客{p.get('away_prob', 0):.1%}")
+
+    # xG
+    lines.append(f"预期进球xG: {home} {p['home_xg']:.2f} - {away} {p['away_xg']:.2f}")
+
+    # 综合判断
+    conf = p.get('confidence', 0)
+    if conf > 0.45:
+        conf_desc = "高置信度"
+    elif conf > 0.35:
+        conf_desc = "中等置信度"
+    else:
+        conf_desc = "低置信度 (比赛不确定性大)"
+
+    if p.get('draw_signal', 0) > 0.6:
+        lines.append(f"⚠ 平局信号较强 ({p.get('draw_signal', 0):.2f})，关注平局可能")
+    lines.append(f"综合判断: {pred} ({conf_desc}, 置信度 {conf:.1%})")
+
+    return lines
+
+
 def generate_html_page(predictions, pred_date, results):
-    """生成当天预测的HTML页面"""
+    """生成当天预测的HTML页面 — 包含详细推理和数据来源"""
     cards = []
     for p in predictions:
         conf_color = '#4ecb71' if p['confidence'] > 0.45 else ('#f39c12' if p['confidence'] > 0.35 else '#8899aa')
         pred_color = {'主胜': '#4ecb71', '平局': '#f39c12', '客胜': '#e74c3c'}.get(p['prediction'], '#8899aa')
+
+        # 组件贡献条
+        ml_bar = _component_bar(p.get('ml_home', 0.33), 'ML', '#4ecb71', 10)
+        elo_bar = _component_bar(p.get('elo_home', 0.33), 'Elo', '#3498db', 10)
+        h2h_bar = _component_bar(p.get('h2h_factor', 0.5), 'H2H', '#9b59b6', 8)
+        spirit_val = (p.get('spirit_h', 1.0) / (p.get('spirit_h', 1.0) + p.get('spirit_a', 1.0)))
+        spirit_bar = _component_bar(spirit_val, '战意', '#e67e22', 8)
+
+        # 推理文本
+        reasoning = _reasoning_text(p)
+        reasoning_html = '<br>'.join(f'<span class="reason-line">{r}</span>' for r in reasoning)
+
         cards.append(f'''
         <div class="match-card">
           <div class="league-tag">{p['league']}</div>
@@ -180,10 +269,14 @@ def generate_html_page(predictions, pred_date, results):
             <span class="prediction" style="color:{pred_color}">{p['prediction']}</span>
             <span class="confidence" style="color:{conf_color}">{p['confidence']:.1%}</span>
           </div>
-          <div class="xg">xG {p['home_xg']:.1f}-{p['away_xg']:.1f} | Elo差 {p['elo_diff']:+.0f}</div>
-          <div class="detail">
-            <small>ML主{p.get('ml_home', 0):.1%} | Elo主{p.get('elo_home', 0):.1%} | H2H {p.get('h2h_factor', 0):.2f}</small>
+          <div class="component-bars">
+            {ml_bar}<br>{elo_bar}<br>{h2h_bar}<br>{spirit_bar}
           </div>
+          <div class="xg">xG {p['home_xg']:.1f}-{p['away_xg']:.1f} | Elo差 {p['elo_diff']:+.0f} | 大2.5 {p.get('over25', 0):.1%}</div>
+          <details class="reasoning">
+            <summary>预测推理过程</summary>
+            <div class="reasoning-body">{reasoning_html}</div>
+          </details>
         </div>''')
 
     return f'''<!DOCTYPE html>
@@ -216,11 +309,23 @@ header .date {{ color: #ffd700; font-size: 1.2em; margin-top: 4px; }}
 .confidence {{ font-size: 1.1em; font-weight: bold; }}
 .xg {{ color: #667788; font-size: 0.85em; margin-bottom: 4px; }}
 .detail {{ color: #667788; font-size: 0.75em; }}
+.component-bars {{ font-family: 'Courier New', monospace; font-size: 0.72em; color: #8899aa; margin: 8px 0; line-height: 1.6; }}
+.reasoning {{ margin-top: 10px; border-top: 1px solid #2a4a3a; padding-top: 8px; }}
+.reasoning summary {{ color: #4ecb71; cursor: pointer; font-size: 0.85em; padding: 4px 0; }}
+.reasoning summary:hover {{ color: #5edc81; }}
+.reasoning-body {{ background: #0f1923; border-radius: 6px; padding: 10px 12px; margin-top: 6px; font-size: 0.78em; color: #99aabb; line-height: 1.8; }}
+.reason-line {{ display: block; padding: 1px 0; }}
 footer {{ text-align: center; padding: 30px; color: #667788; font-size: 0.85em; border-top: 1px solid #2a3a4a; margin-top: 40px; }}
 .data-sources {{ margin-top: 40px; padding: 20px; background: #1a2a3a; border-radius: 10px; }}
 .data-sources h3 {{ color: #4ecb71; margin-bottom: 12px; }}
 .data-sources ul {{ list-style: disc inside; color: #8899aa; line-height: 1.8; }}
 a {{ color: #4ecb71; }}
+.method-table {{ width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.85em; }}
+.method-table th {{ background: #2a3a4a; color: #4ecb71; padding: 8px; text-align: left; }}
+.method-table td {{ padding: 8px; border-bottom: 1px solid #2a3a4a; color: #99aabb; }}
+.method-table tr:hover {{ background: #1a2a3a; }}
+.learning-status {{ margin-top: 30px; padding: 20px; background: #1a2a3a; border-radius: 10px; border-left: 3px solid #4ecb71; }}
+.learning-status h3 {{ color: #4ecb71; margin-bottom: 10px; }}
 </style>
 </head>
 <body>
@@ -243,22 +348,39 @@ a {{ color: #4ecb71; }}
 </div>
 
 <div class="data-sources">
-  <h3>预测数据来源</h3>
-  <ul>
-    <li><strong>ML模型</strong>: XGBoost + LightGBM + RandomForest Ensemble, 训练数据 ~230K场 (2000-2026, 42个联赛)</li>
-    <li><strong>Elo评分</strong>: 双轨系统 — 俱乐部K=32 + 国家队K=20-60 (基于赛事重要性)</li>
-    <li><strong>H2H历史</strong>: 近8场对战记录加权</li>
-    <li><strong>市场赔率</strong>: 隐含概率合成 (当无真实赔率时从Elo推导)</li>
-    <li><strong>泊松xG</strong>: 联赛基准 + 球队攻防因子 + Elo调节</li>
-    <li><strong>战意因子</strong>: 积分榜位置分析 (争冠/欧战/保级加成)</li>
-    <li><strong>自进化引擎</strong>: 指数化梯度下降优化6组件权重, 每次结果反馈触发在线学习</li>
-  </ul>
+  <h3>预测方法与数据来源</h3>
+  <p style="color:#8899aa;margin-bottom:15px">每场比赛的预测结果由以下6个独立组件融合产生，点击比赛卡片中的"预测推理过程"查看各组件的具体贡献。</p>
+  <table class="method-table">
+    <tr><th>组件</th><th>权重</th><th>方法</th><th>数据来源</th></tr>
+    <tr><td>ML集成</td><td>25%</td><td>XGBoost + LightGBM + RandomForest 三模型集成</td><td>xgabora 230K+场历史比赛 (2000-2026, 42个联赛)</td></tr>
+    <tr><td>市场赔率</td><td>35%</td><td>庄家隐含概率反推 + 从Elo推导 (无真实赔率时)</td><td>Elo概率模型 + 赔率合成算法</td></tr>
+    <tr><td>Elo评分</td><td>14%</td><td>双轨Elo系统: 俱乐部K=32, 国家队K=20-60</td><td>全历史比赛结果逐场计算</td></tr>
+    <tr><td>基准模型</td><td>12%</td><td>泊松分布 + 联赛平均进球基准</td><td>各联赛历史进球统计</td></tr>
+    <tr><td>H2H交锋</td><td>7%</td><td>近8场历史对战加权 (近期权重更高)</td><td>历史比赛记录</td></tr>
+    <tr><td>战意因子</td><td>7%</td><td>积分榜位置分析 (争冠/欧战/保级激励)</td><td>联赛排名 + 赛事重要性权重</td></tr>
+  </table>
+  <p style="color:#667788;font-size:0.8em;margin-top:12px">
+    融合公式: P_final = w1*P_ml + w2*P_market + w3*P_elo + w4*P_baseline + w5*P_h2h + w6*P_spirit<br>
+    权重通过指数化梯度下降自进化: w_new = w * exp(-lr * grad), 然后simplex归一化
+  </p>
+</div>
+
+<div class="learning-status">
+  <h3>自学习状态</h3>
+  <p style="color:#8899aa">每次比赛结果确认后，系统自动执行:</p>
+  <ol style="color:#8899aa;line-height:2;margin-left:20px">
+    <li>计算各组件预测梯度 → 指数化权重更新</li>
+    <li>平局检测阈值自适应优化</li>
+    <li>概率校准 (Isotonic Regression)</li>
+    <li>特征有效性评分 → 低效特征自动修剪</li>
+    <li>知识库迁移 → 新旧权重平滑过渡</li>
+  </ol>
 </div>
 
 <footer>
   <p>足彩预测SKIL v3.0.0 | 自动生成于 {datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d %H:%M')} CST</p>
   <p>!! 本预测仅供参考, 足球比赛存在较大不确定性, 理性购彩 !!</p>
-  <p><a href="archive.html">历史预测归档</a></p>
+  <p><a href="archive.html">历史预测归档</a> | <a href="https://github.com/cjtdawn-cn/football-prediction-auto">GitHub</a></p>
 </footer>
 </div>
 </body>
