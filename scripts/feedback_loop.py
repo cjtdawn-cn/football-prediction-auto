@@ -40,7 +40,7 @@ def run_feedback_loop():
 
     # Step 2: 通过进化引擎录入结果 (触发在线学习)
     print("\n[2/4] 进化引擎录入结果 + 在线学习...")
-    total_new = correct = 0
+    total = total_new = correct = 0
 
     if EVO_AVAILABLE:
         try:
