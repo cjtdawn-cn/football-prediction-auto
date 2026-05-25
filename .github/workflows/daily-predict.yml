@@ -68,7 +68,8 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "Daily update: predictions & self-learning $(date +%Y-%m-%d)"
-            git push
+            git pull --rebase origin master || true
+            git push || true
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
