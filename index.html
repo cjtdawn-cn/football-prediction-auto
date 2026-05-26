@@ -45,6 +45,20 @@ a { color: #4ecb71; }
 .method-table tr:hover { background: #1a2a3a; }
 .learning-status { margin-top: 30px; padding: 20px; background: #1a2a3a; border-radius: 10px; border-left: 3px solid #4ecb71; }
 .learning-status h3 { color: #4ecb71; margin-bottom: 10px; }
+.yesterday-section { margin-bottom: 30px; padding: 20px; background: #1a2a3a; border-radius: 12px; border: 1px solid #2a4a3a; }
+.yesterday-section h2 { color: #ffd700; font-size: 1.3em; margin-bottom: 12px; }
+.review-summary { display: flex; gap: 20px; margin-bottom: 16px; }
+.review-stat { background: #0f1923; padding: 8px 16px; border-radius: 6px; text-align: center; }
+.rlabel { font-size: 0.75em; color: #8899aa; display: block; }
+.rvalue { font-size: 1.3em; font-weight: bold; display: block; }
+.review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.review-card { background: #0f1923; border-radius: 8px; padding: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.review-correct { border-left: 3px solid #4ecb71; }
+.review-wrong { border-left: 3px solid #e74c3c; }
+.review-icon { font-size: 1.4em; font-weight: bold; width: 24px; text-align: center; }
+.review-teams { font-weight: bold; font-size: 0.9em; flex: 1; min-width: 120px; }
+.review-league { font-size: 0.7em; color: #667788; width: 100%; }
+.review-compare { font-size: 0.75em; color: #8899aa; width: 100%; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -61,6 +75,8 @@ a { color: #4ecb71; }
   <div class="summary-item"><span class="label">平局预测</span><span class="value">1</span></div>
   <div class="summary-item"><span class="label">客胜预测</span><span class="value">2</span></div>
 </div>
+
+
 
 <div class="match-grid">
 
@@ -181,7 +197,7 @@ a { color: #4ecb71; }
 </div>
 
 <footer>
-  <p>足彩预测SKIL v3.0.0 | 自动生成于 2026-05-26 17:51 CST</p>
+  <p>足彩预测SKIL v3.0.0 | 自动生成于 2026-05-26 18:08 CST</p>
   <p>!! 本预测仅供参考, 足球比赛存在较大不确定性, 理性购彩 !!</p>
   <p><a href="archive.html">历史预测归档</a> | <a href="https://github.com/cjtdawn-cn/football-prediction-auto">GitHub</a></p>
 </footer>
