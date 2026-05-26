@@ -274,10 +274,11 @@ def save_match_list(by_league, date_str):
 def main():
     date_str = os.environ.get("PREDICTION_DATE") or datetime.now(CST).strftime("%Y-%m-%d")
 
-    print("=" * 50)
-    print(f"  Match Fetcher — {date_str}")
-    print(f"  football-data.org key: {'YES' if FOOTBALL_DATA_KEY else 'NOT SET (get free key for more leagues)'}")
-    print("=" * 50)
+    print("=" * 60)
+    print(f"  Match Fetcher v2.0 — {date_str}")
+    print(f"  Sources: openfootball + football-data.org + Fotmob SSR")
+    print(f"  API key: {'CONFIGURED' if FOOTBALL_DATA_KEY else 'NOT SET'}")
+    print("=" * 60)
 
     by_league = fetch_today_matches(date_str)
 
