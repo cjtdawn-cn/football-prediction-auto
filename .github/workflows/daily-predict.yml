@@ -46,6 +46,8 @@ jobs:
       - name: Fetch today's match list
         run: python scripts/match_fetcher.py
         continue-on-error: true
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
 
       - name: Run prediction
         run: python scripts/run_predict.py

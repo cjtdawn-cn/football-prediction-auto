@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 """
-当日比赛自动获取器 — 从 Fotmob 公开 API 获取今天比赛列表
+当日比赛自动获取器 — 多源获取当天足球比赛列表
+数据源:
+  1. openfootball/football.json (免费, 无认证, 覆盖欧洲主要联赛)
+  2. football-data.org API (免费注册, 覆盖更广, 需 FOOTBALL_DATA_KEY)
+  3. Fotmob Next.js SSR 页面抓取 (免费, 无需认证)
 输出: data/today_matches.json
 """
-import sys, os, json, re, traceback
+import sys, os, json, re
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
@@ -11,165 +15,227 @@ import requests
 
 BASE = Path(__file__).parent.parent
 DATA_DIR = BASE / "data"
-
 CST = timezone(timedelta(hours=8))
 
-# Fotmob league id → 内部联赛代码
-FOTMOB_ID_MAP = {
-    47: "E0",     # Premier League
-    54: "D1",     # Bundesliga
-    53: "F1",     # Ligue 1
-    55: "I1",     # Serie A
-    87: "SP1",    # La Liga
-    52: "E1",     # Championship
-    77: "D2",     # 2. Bundesliga
-    64: "F2",     # Ligue 2
-    56: "I2",     # Serie B
-    88: "SP2",    # La Liga 2
-    71: "N1",     # Eredivisie
-    76: "P1",     # Primeira Liga
-    74: "B1",     # Belgian Pro League
-    83: "T1",     # Super Lig
-    89: "BRA",    # Brasileirão
-    130: "USA",    # Major League Soccer
-    92: "NOR",    # Eliteserien
-    93: "SWE",    # Allsvenskan
-    94: "DEN",    # Superliga
-    73: "AUT",    # Austrian Bundesliga
-    75: "SUI",    # Swiss Super League
-    79: "JAP",    # J1 League
-    124: "CHN",   # Chinese Super League
-    67: "ARG",    # Argentine League
-    68: "MEX",    # Liga MX
-    59: "SC0",    # Scottish Premiership
-    97: "IRL",    # Irish Premier Division
-    98: "FIN",    # Veikkausliiga
-    60: "G1",     # Greek Super League
-    62: "ROM",    # Romanian Liga I
-    63: "POL",    # Polish Ekstraklasa
-    80: "RUS",    # Russian Premier League
+MAX_PER_LEAGUE = int(os.environ.get("MAX_PER_LEAGUE", "4"))
+FOOTBALL_DATA_KEY = os.environ.get("FOOTBALL_DATA_KEY", "")
+
+# ============================================================
+# Source 1: openfootball/football.json 联赛文件映射
+# ============================================================
+OPENFOOTBALL_LEAGUES = {
+    "en.1": "E0", "de.1": "D1", "es.1": "SP1", "it.1": "I1",
+    "fr.1": "F1", "en.2": "E1", "nl.1": "N1", "pt.1": "P1",
+    "de.2": "D2", "es.2": "SP2", "it.2": "I2", "fr.2": "F2",
+}
+OPENFOOTBALL_BASE = "https://raw.githubusercontent.com/openfootball/football.json/master"
+
+# ============================================================
+# Source 2: football-data.org 联赛映射 (free tier 覆盖13个赛事)
+# ============================================================
+FD_COMPETITIONS = {
+    "PL": "E0",     # Premier League
+    "PD": "SP1",    # La Liga
+    "BL1": "D1",    # Bundesliga
+    "SA": "I1",     # Serie A
+    "FL1": "F1",    # Ligue 1
+    "ELC": "E1",    # Championship
+    "DED": "N1",    # Eredivisie
+    "PPL": "P1",    # Primeira Liga
+    "BSA": "BRA",   # Brazilian Serie A
+    "CLI": "INTL",  # Copa Libertadores (南美解放者杯)
+    "CL": "INTL",   # Champions League
+    "EC": "INTL",   # European Championship
+    "WC": "INTL",   # FIFA World Cup
 }
 
-# fallback: ccode → 候选联赛代码列表 (匹配时按优先级取)
-CCODE_MAP = {
-    "ENG": ["E0", "E1", "E2", "E3", "EC"],
-    "GER": ["D1", "D2"],
-    "FRA": ["F1", "F2"],
-    "ITA": ["I1", "I2"],
-    "ESP": ["SP1", "SP2"],
-    "NED": ["N1"],
-    "POR": ["P1"],
-    "BEL": ["B1"],
-    "TUR": ["T1"],
-    "BRA": ["BRA"],
-    "USA": ["USA"],
-    "NOR": ["NOR"],
-    "SWE": ["SWE"],
-    "DEN": ["DEN"],
-    "AUT": ["AUT"],
-    "SUI": ["SUI"],
-    "JPN": ["JAP"],
-    "CHN": ["CHN"],
-    "ARG": ["ARG"],
-    "MEX": ["MEX"],
-    "SCO": ["SC0"],
-    "IRL": ["IRL"],
-    "FIN": ["FIN"],
-    "GRE": ["G1"],
-    "ROU": ["ROM"],
-    "POL": ["POL"],
-    "RUS": ["RUS"],
+# ============================================================
+# Source 3: Fotmob Next.js SSR — 已验证可用的联赛页面
+# ============================================================
+FOTMOB_LEAGUE_PAGES = {
+    130: ("usa/mls", "USA"),
+    47: ("premier-league", "E0"),
+    54: ("bundesliga", "D1"),
+    87: ("laliga", "SP1"),
+    55: ("serie-a", "I1"),
+    53: ("ligue-1", "F1"),
+    71: ("eredivisie", "N1"),
+    76: ("primeira-liga", "P1"),
+    52: ("championship", "E1"),
 }
 
-# 每个联赛每天最多取几场 (避免单日几百场)
-MAX_PER_LEAGUE = int(os.environ.get("MAX_PER_LEAGUE", "3"))
-
-# 优先联赛 (这些联赛必取, 按顺序)
-PRIORITY_LEAGUES = ["E0", "D1", "F1", "I1", "SP1", "N1", "P1", "BRA", "USA"]
+PRIORITY_LEAGUES = ["E0", "D1", "F1", "I1", "SP1", "N1", "P1", "BRA", "USA", "NOR", "SWE"]
 
 
-def _match_league(fotmob_id, league_name, ccode):
-    """将 Fotmob 联赛信息映射到内部代码"""
-    # 1. 精确 ID 匹配
-    if fotmob_id in FOTMOB_ID_MAP:
-        return FOTMOB_ID_MAP[fotmob_id]
+def _fetch_openfootball(season, date_str):
+    """从 openfootball/football.json 获取比赛"""
+    by_league = {}
+    for file_key, lg_code in OPENFOOTBALL_LEAGUES.items():
+        url = f"{OPENFOOTBALL_BASE}/{season}/{file_key}.json"
+        try:
+            resp = requests.get(url, timeout=15)
+            if resp.status_code != 200:
+                continue
+            data = resp.json()
+            matches = data.get("matches", [])
+            upcoming = [m for m in matches if m.get("date", "") == date_str
+                       and not m.get("score")]
+            if upcoming:
+                by_league[lg_code] = []
+                for m in upcoming[:MAX_PER_LEAGUE]:
+                    by_league[lg_code].append({
+                        "home": m.get("team1", ""),
+                        "away": m.get("team2", ""),
+                    })
+                print(f"  [openfootball] {lg_code}: {len(by_league[lg_code])} matches")
+        except Exception as e:
+            print(f"  [openfootball] {lg_code} error: {e}")
+    return by_league
 
-    # 2. ccode 匹配 (取该国家的第一个联赛)
-    candidates = CCODE_MAP.get(ccode.upper(), [])
-    if candidates:
-        return candidates[0]
 
-    return None
+def _fetch_football_data(date_str):
+    """从 football-data.org API 获取比赛"""
+    if not FOOTBALL_DATA_KEY:
+        return {}
+    by_league = {}
+    headers = {"X-Auth-Token": FOOTBALL_DATA_KEY}
+    url = f"https://api.football-data.org/v4/matches?dateFrom={date_str}&dateTo={date_str}"
+    try:
+        resp = requests.get(url, headers=headers, timeout=15)
+        if resp.status_code != 200:
+            print(f"  [football-data.org] HTTP {resp.status_code}")
+            return {}
+        data = resp.json()
+        for match in data.get("matches", []):
+            comp = match.get("competition", {}).get("code", "")
+            lg_code = FD_COMPETITIONS.get(comp)
+            if not lg_code:
+                continue
+            status = match.get("status", "")
+            if status in ("FINISHED", "IN_PLAY", "PAUSED"):
+                continue
+            h = match.get("homeTeam", {}).get("name", "")
+            a = match.get("awayTeam", {}).get("name", "")
+            if h and a:
+                by_league.setdefault(lg_code, []).append({"home": h, "away": a})
+    except Exception as e:
+        print(f"  [football-data.org] error: {e}")
+    for lg, mlist in by_league.items():
+        by_league[lg] = mlist[:MAX_PER_LEAGUE]
+        print(f"  [football-data.org] {lg}: {len(by_league[lg])} matches")
+    return by_league
+
+
+def _fetch_fotmob_ssr(date_str):
+    """从 Fotmob Next.js SSR 页面抓取每联赛的赛程"""
+    by_league = {}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "Accept-Language": "en,zh-CN;q=0.9",
+    }
+    for fotmob_id, (slug, lg_code) in FOTMOB_LEAGUE_PAGES.items():
+        try:
+            url = f"https://www.fotmob.com/leagues/{fotmob_id}/matches/{slug}"
+            resp = requests.get(url, headers=headers, timeout=15)
+            if resp.status_code != 200:
+                continue
+
+            m = re.search(
+                r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
+                resp.text,
+            )
+            if not m:
+                continue
+
+            data = json.loads(m.group(1))
+            pp = data.get("props", {}).get("pageProps", {})
+            fixtures = pp.get("fixtures", {})
+            all_matches = fixtures.get("allMatches", [])
+
+            upcoming = []
+            for match in all_matches:
+                st = match.get("status", {})
+                utc_time = st.get("utcTime", "")[:10]
+                if utc_time == date_str and not st.get("finished") and not st.get("started"):
+                    h = match.get("home", {}).get("name", "")
+                    a = match.get("away", {}).get("name", "")
+                    if h and a:
+                        upcoming.append({"home": h, "away": a})
+                        if len(upcoming) >= MAX_PER_LEAGUE:
+                            break
+
+            if upcoming:
+                by_league[lg_code] = upcoming
+                print(f"  [fotmob] {lg_code}: {len(upcoming)} matches")
+        except Exception as e:
+            print(f"  [fotmob] {lg_code} (ID:{fotmob_id}) error: {e}")
+
+    return by_league
 
 
 def fetch_today_matches(date_str=None):
-    """从 Fotmob 获取当天比赛, 返回 {lg_code: [matches]}"""
+    """多源获取当天比赛, 合并去重"""
     if date_str is None:
         date_str = datetime.now(CST).strftime("%Y-%m-%d")
 
-    url = f"https://www.fotmob.com/api/matches?date={date_str}"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Accept": "application/json",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    }
+    # 确定赛季 (用于 openfootball)
+    year = int(date_str[:4])
+    month = int(date_str[5:7])
+    # 赛季跨年: 8月→次年5月是同一赛季
+    if month >= 8:
+        season = f"{year}-{str(year+1)[-2:]}"
+    else:
+        season = f"{year-1}-{str(year)[-2:]}"
 
+    all_by_league = {}
+
+    # 数据源1: openfootball (免费, 覆盖欧洲主要联赛)
+    print("\n[1] openfootball/football.json ...")
     try:
-        resp = requests.get(url, headers=headers, timeout=20)
-        if resp.status_code != 200:
-            print(f"  Fotmob API returned HTTP {resp.status_code}")
-            return {}
-        data = resp.json()
+        of_data = _fetch_openfootball(season, date_str)
+        for lg, mlist in of_data.items():
+            all_by_league.setdefault(lg, []).extend(mlist)
     except Exception as e:
-        print(f"  Fotmob API error: {e}")
-        return {}
+        print(f"  openfootball error: {e}")
 
-    leagues_data = data.get("leagues", [])
-    if not leagues_data:
-        print(f"  No leagues data in Fotmob response (keys: {list(data.keys())[:5]})")
-        return {}
+    # 数据源2: football-data.org (如果配置了 API key)
+    if FOOTBALL_DATA_KEY:
+        print("\n[2] football-data.org ...")
+        try:
+            fd_data = _fetch_football_data(date_str)
+            for lg, mlist in fd_data.items():
+                if lg not in all_by_league:
+                    all_by_league[lg] = mlist
+        except Exception as e:
+            print(f"  football-data.org error: {e}")
 
-    result = {}
-    matched = 0
-    skipped = 0
+    # 数据源3: Fotmob Next.js SSR
+    print("\n[3] Fotmob SSR ...")
+    try:
+        fm_data = _fetch_fotmob_ssr(date_str)
+        for lg, mlist in fm_data.items():
+            if lg not in all_by_league:
+                all_by_league[lg] = mlist
+    except Exception as e:
+        print(f"  fotmob error: {e}")
 
-    for league_group in leagues_data:
-        fotmob_id = league_group.get("id", 0)
-        fotmob_name = league_group.get("name", "")
-        ccode = league_group.get("ccode", "")
-        matches = league_group.get("matches", [])
+    # 去重 + 限制每联赛数量
+    for lg in all_by_league:
+        seen = set()
+        unique = []
+        for m in all_by_league[lg]:
+            key = (m["home"], m["away"])
+            if key not in seen:
+                seen.add(key)
+                unique.append(m)
+        all_by_league[lg] = unique[:MAX_PER_LEAGUE]
 
-        lg_code = _match_league(fotmob_id, fotmob_name, ccode)
-        if lg_code is None:
-            skipped += 1
-            continue
-
-        # 取未开始的比赛
-        pending = []
-        for m in matches:
-            status = m.get("status", {})
-            if status.get("started") or status.get("finished"):
-                continue
-            h = m.get("home", {}).get("name", "")
-            a = m.get("away", {}).get("name", "")
-            if h and a:
-                pending.append({"home": h, "away": a})
-                if len(pending) >= MAX_PER_LEAGUE:
-                    break
-
-        if pending:
-            result[lg_code] = pending
-            matched += 1
-            print(f"  {fotmob_name} ({ccode}) → {lg_code}: {len(pending)}场")
-
-    print(f"  匹配: {matched}联赛, 跳过: {skipped}联赛")
-    return result
+    return all_by_league
 
 
 def save_match_list(by_league, date_str):
     """将联赛分组数据写入 today_matches.json"""
     matches = []
-    # 优先联赛排前面
     done = set()
     for lg in PRIORITY_LEAGUES:
         if lg in by_league:
@@ -177,7 +243,6 @@ def save_match_list(by_league, date_str):
                 matches.append({"lg": lg, "home": m["home"], "away": m["away"]})
             done.add(lg)
 
-    # 其余联赛
     for lg, mlist in sorted(by_league.items()):
         if lg in done:
             continue
@@ -185,7 +250,7 @@ def save_match_list(by_league, date_str):
             matches.append({"lg": lg, "home": m["home"], "away": m["away"]})
 
     if not matches:
-        print("  WARNING: 没有匹配到任何支持的联赛比赛!")
+        print("\n  WARNING: No matches found from any source!")
         return None
 
     payload = {
@@ -200,31 +265,29 @@ def save_match_list(by_league, date_str):
         json.dump(payload, f, indent=2, ensure_ascii=False)
     Path(tmp).replace(out_path)
 
-    print(f"\n  共 {len(matches)} 场比赛 → {out_path}")
-    # 打印所有比赛
+    print(f"\n  Total: {len(matches)} matches saved → {out_path}")
     for i, m in enumerate(matches):
         print(f"    {i+1}. [{m['lg']}] {m['home']} vs {m['away']}")
     return payload
 
 
 def main():
-    date_str = os.environ.get("PREDICTION_DATE")
-    if not date_str:
-        date_str = datetime.now(CST).strftime("%Y-%m-%d")
+    date_str = os.environ.get("PREDICTION_DATE") or datetime.now(CST).strftime("%Y-%m-%d")
 
     print("=" * 50)
-    print(f"  比赛列表获取 — {date_str}")
+    print(f"  Match Fetcher — {date_str}")
+    print(f"  football-data.org key: {'YES' if FOOTBALL_DATA_KEY else 'NOT SET (get free key for more leagues)'}")
     print("=" * 50)
 
     by_league = fetch_today_matches(date_str)
 
     if not by_league:
-        print("\n  未获取到比赛数据。使用 fallback 列表。")
-        # 不创建文件, 让 run_predict.py 用内置 fallback
-        return
+        print("\n  No matches found. Keeping existing today_matches.json unchanged.")
+        return 1
 
     save_match_list(by_league, date_str)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
