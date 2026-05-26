@@ -198,7 +198,7 @@ def find_missing_results(days_back=7):
 
             match_date = rec.get('match_date', f.stem)
             try:
-                match_dt = datetime.strptime(match_date, "%Y-%m-%d")
+                match_dt = datetime.strptime(match_date, "%Y-%m-%d").replace(tzinfo=timezone(timedelta(hours=8)))
             except ValueError:
                 continue
 
