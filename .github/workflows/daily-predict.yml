@@ -43,6 +43,10 @@ jobs:
             echo "Note: xgabora data not present. Running with Elo-only mode."
           fi
 
+      - name: Fetch today's match list
+        run: python scripts/match_fetcher.py
+        continue-on-error: true
+
       - name: Run prediction
         run: python scripts/run_predict.py
 

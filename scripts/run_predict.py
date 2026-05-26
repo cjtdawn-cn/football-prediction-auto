@@ -64,6 +64,30 @@ def load_matches():
     return [(m['lg'], m['home'], m['away']) for m in FALLBACK_MATCHES], TODAY
 
 
+def load_yesterday_results(today_str):
+    """加载前一天的预测+实际结果"""
+    try:
+        dt = datetime.strptime(today_str, "%Y-%m-%d")
+        yesterday = (dt - timedelta(days=1)).strftime("%Y-%m-%d")
+    except ValueError:
+        return None, None
+
+    result_path = RESULTS_DIR / f"{yesterday}.json"
+    if not result_path.exists():
+        return None, yesterday
+
+    try:
+        data = json.loads(result_path.read_text(encoding='utf-8'))
+        # 过滤有实际结果的比赛
+        review = {}
+        for mid, rec in data.items():
+            if rec.get('actual') is not None:
+                review[mid] = rec
+        return review, yesterday
+    except (json.JSONDecodeError, FileNotFoundError):
+        return None, yesterday
+
+
 def main():
     print(f"=" * 60)
     print(f"  足彩预测SKIL — 每日自动预测")
@@ -73,6 +97,9 @@ def main():
 
     matches, pred_date = load_matches()
     print(f"\n比赛列表: {len(matches)} 场")
+
+    # 加载昨日结果回顾
+    yesterday_results, yesterday_date = load_yesterday_results(pred_date)
 
     predictions = []
 
@@ -145,7 +172,7 @@ def main():
     (DOCS_DIR / f"prediction_{pred_date}.md").write_text(report, encoding='utf-8')
 
     # Generate HTML page for GitHub Pages
-    html = generate_html_page(predictions, pred_date, results)
+    html = generate_html_page(predictions, pred_date, yesterday_results, yesterday_date)
     (DOCS_DIR / "index.html").write_text(html, encoding='utf-8')
 
     # Update archive
@@ -238,8 +265,55 @@ def _reasoning_text(p):
     return lines
 
 
-def generate_html_page(predictions, pred_date, results):
-    """生成当天预测的HTML页面 — 包含详细推理和数据来源"""
+def generate_html_page(predictions, pred_date, yesterday_results=None, yesterday_date=None):
+    """生成当天预测的HTML页面 — 包含详细推理、数据来源和昨日回顾"""
+    # 昨日回顾 HTML
+    yesterday_html = ""
+    yesterday_stats = None
+    if yesterday_results and yesterday_date:
+        correct = 0
+        total = len(yesterday_results)
+        review_cards = []
+        for mid, rec in yesterday_results.items():
+            actual = rec['actual']
+            pred = rec.get('prediction', {})
+            pred_result = pred.get('prediction', '?')
+            actual_result = {'H': '主胜', 'D': '平局', 'A': '客胜'}.get(actual['ft_result'], actual['ft_result'])
+            is_correct = (pred_result == actual_result)
+            if is_correct:
+                correct += 1
+
+            card_class = 'review-correct' if is_correct else 'review-wrong'
+            icon = '✓' if is_correct else '✗'
+            icon_color = '#4ecb71' if is_correct else '#e74c3c'
+
+            review_cards.append(f'''
+            <div class="review-card {card_class}">
+              <div class="review-icon" style="color:{icon_color}">{icon}</div>
+              <div class="review-teams">{rec['home_team']} <span class="vs">vs</span> {rec['away_team']}</div>
+              <div class="review-league">{rec.get('league', '')}</div>
+              <div class="review-compare">
+                <div>预测: <b style="color:{'#4ecb71' if pred_result=='主胜' else '#f39c12' if pred_result=='平局' else '#e74c3c'}">{pred_result}</b> (H:{pred.get('home_prob',0):.1%} D:{pred.get('draw_prob',0):.1%} A:{pred.get('away_prob',0):.1%})</div>
+                <div>实际: <b style="color:#ffd700">{actual['ft_home_goals']}:{actual['ft_away_goals']} ({actual_result})</b></div>
+              </div>
+            </div>''')
+
+        acc = correct / total if total > 0 else 0
+        yesterday_stats = {'total': total, 'correct': correct, 'accuracy': acc}
+        yesterday_html = f'''
+        <div class="yesterday-section">
+          <h2>昨日回顾 — {yesterday_date}</h2>
+          <div class="review-summary">
+            <div class="review-stat"><span class="rlabel">比赛</span><span class="rvalue">{total}</span></div>
+            <div class="review-stat"><span class="rlabel">命中</span><span class="rvalue" style="color:#4ecb71">{correct}</span></div>
+            <div class="review-stat"><span class="rlabel">准确率</span><span class="rvalue" style="color:{'#4ecb71' if acc >= 0.5 else '#f39c12'}">{acc:.1%}</span></div>
+          </div>
+          <div class="review-grid">
+            {''.join(review_cards)}
+          </div>
+        </div>'''
+
+    # 今日预测卡片
     cards = []
     for p in predictions:
         conf_color = '#4ecb71' if p['confidence'] > 0.45 else ('#f39c12' if p['confidence'] > 0.35 else '#8899aa')
@@ -326,6 +400,20 @@ a {{ color: #4ecb71; }}
 .method-table tr:hover {{ background: #1a2a3a; }}
 .learning-status {{ margin-top: 30px; padding: 20px; background: #1a2a3a; border-radius: 10px; border-left: 3px solid #4ecb71; }}
 .learning-status h3 {{ color: #4ecb71; margin-bottom: 10px; }}
+.yesterday-section {{ margin-bottom: 30px; padding: 20px; background: #1a2a3a; border-radius: 12px; border: 1px solid #2a4a3a; }}
+.yesterday-section h2 {{ color: #ffd700; font-size: 1.3em; margin-bottom: 12px; }}
+.review-summary {{ display: flex; gap: 20px; margin-bottom: 16px; }}
+.review-stat {{ background: #0f1923; padding: 8px 16px; border-radius: 6px; text-align: center; }}
+.rlabel {{ font-size: 0.75em; color: #8899aa; display: block; }}
+.rvalue {{ font-size: 1.3em; font-weight: bold; display: block; }}
+.review-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }}
+.review-card {{ background: #0f1923; border-radius: 8px; padding: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }}
+.review-correct {{ border-left: 3px solid #4ecb71; }}
+.review-wrong {{ border-left: 3px solid #e74c3c; }}
+.review-icon {{ font-size: 1.4em; font-weight: bold; width: 24px; text-align: center; }}
+.review-teams {{ font-weight: bold; font-size: 0.9em; flex: 1; min-width: 120px; }}
+.review-league {{ font-size: 0.7em; color: #667788; width: 100%; }}
+.review-compare {{ font-size: 0.75em; color: #8899aa; width: 100%; line-height: 1.6; }}
 </style>
 </head>
 <body>
@@ -342,6 +430,8 @@ a {{ color: #4ecb71; }}
   <div class="summary-item"><span class="label">平局预测</span><span class="value">{sum(1 for p in predictions if p['prediction']=='平局')}</span></div>
   <div class="summary-item"><span class="label">客胜预测</span><span class="value">{sum(1 for p in predictions if p['prediction']=='客胜')}</span></div>
 </div>
+
+{yesterday_html}
 
 <div class="match-grid">
 {''.join(cards)}
