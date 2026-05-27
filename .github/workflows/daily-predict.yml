@@ -81,14 +81,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/knowledge_base.json models/ 2>/dev/null || true
+          git add data/knowledge_base.json data/today_matches.json data/lottery_matches.json models/ 2>/dev/null || true
           git add results/ docs/ 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Daily update: predictions & self-learning $(date +%Y-%m-%d)"
-            git pull --rebase origin master || true
-            git push || true
+            git pull --rebase --autostash origin master
+            git push
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
