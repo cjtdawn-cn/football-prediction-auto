@@ -283,7 +283,11 @@ def main():
     by_league = fetch_today_matches(date_str)
 
     if not by_league:
-        print("\n  No matches found. Keeping existing today_matches.json unchanged.")
+        existing_path = DATA_DIR / "today_matches.json"
+        if existing_path.exists():
+            print("\n  No matches found. Keeping existing today_matches.json unchanged.")
+            return 0
+        print("\n  No matches found and no existing today_matches.json is available.")
         return 1
 
     save_match_list(by_league, date_str)
