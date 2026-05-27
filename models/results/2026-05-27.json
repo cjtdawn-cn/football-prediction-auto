@@ -7,11 +7,11 @@
     "away_team": "Rayo Vallecano",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.5489973917690981,
-      "draw_prob": 0.21212793338178773,
-      "away_prob": 0.238874674849114,
+      "home_prob": 0.5099012467016076,
+      "draw_prob": 0.25358289853625054,
+      "away_prob": 0.2365158547621417,
       "prediction": "主胜",
-      "confidence": 0.5489973917690981,
+      "confidence": 0.5099012467016076,
       "home_xg": 1.9067798889041097,
       "away_xg": 1.045,
       "over25": 0.6927917941476789,
@@ -34,7 +34,235 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Crystal Palace",
-      "away_team": "Rayo Vallecano"
+      "away_team": "Rayo Vallecano",
+      "goals_probs": {
+        "0": 0.05224662994361663,
+        "1": 0.15422055153058284,
+        "2": 0.22761256123183715,
+        "3": 0.22395406023536404,
+        "4": 0.16526577276029178,
+        "5": 0.09756563687160517,
+        "5+": 0.07913478742670244
+      },
+      "most_likely_goals": 2,
+      "low_score_prob": 0.20646718147419946,
+      "total_xg": 2.9517798889041096,
+      "jczq": {
+        "league": "欧协联",
+        "home": "水晶宫",
+        "away": "巴列卡诺",
+        "handicap": "-1",
+        "spf_odds": [
+          1.88,
+          3.0,
+          3.78
+        ],
+        "rqspf_odds": [
+          4.2,
+          3.35,
+          1.69
+        ]
+      },
+      "market_weight": 0.5,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 1.88,
+          "fair_odd": 1.96,
+          "tag": "fair",
+          "desc": "基本吻合"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 3.0,
+          "fair_odd": 3.94,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.94"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 3.78,
+          "fair_odd": 4.23,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.45"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 1.78,
+          "平局": 3.58,
+          "客胜": 3.84
+        },
+        "rqspf": {
+          "主胜": 2.7,
+          "平局": 3.82,
+          "客胜": 2.14,
+          "handicap": -1,
+          "probs": [
+            0.3369,
+            0.2379,
+            0.4252
+          ]
+        },
+        "scores": [
+          {
+            "score": "1:1",
+            "prob": 0.1041058502852811,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 8.73
+          },
+          {
+            "score": "1:0",
+            "prob": 0.09962282323950346,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 9.13
+          },
+          {
+            "score": "2:1",
+            "prob": 0.09925347082061808,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 9.16
+          },
+          {
+            "score": "2:0",
+            "prob": 0.09497939791446708,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 9.57
+          },
+          {
+            "score": "3:1",
+            "prob": 0.06308484068822848,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 14.41
+          },
+          {
+            "score": "3:0",
+            "prob": 0.060368268601175584,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 15.06
+          },
+          {
+            "score": "0:1",
+            "prob": 0.054597728291079374,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 16.65
+          },
+          {
+            "score": "1:2",
+            "prob": 0.05439530677405937,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 16.71
+          },
+          {
+            "score": "0:0",
+            "prob": 0.05224662994361663,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 17.4
+          },
+          {
+            "score": "2:2",
+            "prob": 0.05185993850377294,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 17.53
+          },
+          {
+            "score": "3:2",
+            "prob": 0.032961829259599375,
+            "home": 3,
+            "away": 2,
+            "lottery_odds": 27.58
+          },
+          {
+            "score": "4:1",
+            "prob": 0.030072226379758437,
+            "home": 4,
+            "away": 1,
+            "lottery_odds": 30.23
+          }
+        ],
+        "total_goals": {
+          "0": 17.4,
+          "1": 5.89,
+          "2": 3.99,
+          "3": 4.06,
+          "4": 5.5,
+          "5": 9.32,
+          "6": 18.94,
+          "7+": 29.2
+        },
+        "total_goals_most_likely": 2,
+        "ht_ft": [
+          {
+            "combo": "胜胜",
+            "prob": 0.21507795620949036,
+            "lottery_odds": 4.23
+          },
+          {
+            "combo": "平胜",
+            "prob": 0.1982098240064863,
+            "lottery_odds": 4.59
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.10696206745847005,
+            "lottery_odds": 8.5
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.09976313449406146,
+            "lottery_odds": 9.11
+          },
+          {
+            "combo": "平平",
+            "prob": 0.09857324730044913,
+            "lottery_odds": 9.22
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.09661197165282834,
+            "lottery_odds": 9.41
+          },
+          {
+            "combo": "平负",
+            "prob": 0.09193891219211246,
+            "lottery_odds": 9.89
+          },
+          {
+            "combo": "负平",
+            "prob": 0.048046840370569034,
+            "lottery_odds": 18.92
+          },
+          {
+            "combo": "负负",
+            "prob": 0.0448131147031621,
+            "lottery_odds": 20.29
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "1:1",
+            "odds": 8.73,
+            "reason": "最可能比分, 概率10.4%"
+          },
+          {
+            "type": "总进球",
+            "pick": "2球",
+            "odds": 3.99,
+            "reason": "最可能总进球, 概率22.8%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -47,11 +275,11 @@
     "away_team": "Rosario Central",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.35633068844766524,
-      "draw_prob": 0.34939194337173163,
-      "away_prob": 0.2942773681806031,
+      "home_prob": 0.4304154976929889,
+      "draw_prob": 0.3202085290293688,
+      "away_prob": 0.24937597327764235,
       "prediction": "主胜",
-      "confidence": 0.35633068844766524,
+      "confidence": 0.4304154976929889,
       "home_xg": 1.26,
       "away_xg": 0.76,
       "over25": 0.29650430904818886,
@@ -74,7 +302,241 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Independiente del Valle",
-      "away_team": "Rosario Central"
+      "away_team": "Rosario Central",
+      "goals_probs": {
+        "0": 0.13265546508012174,
+        "1": 0.2679640394618459,
+        "2": 0.27064367985646437,
+        "3": 0.18223341110335267,
+        "4": 0.09202787260719311,
+        "5": 0.037179260533306016,
+        "5+": 0.017296271357716164
+      },
+      "most_likely_goals": 2,
+      "low_score_prob": 0.4006195045419676,
+      "total_xg": 2.02,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "德尔瓦耶",
+        "away": "罗萨里奥",
+        "handicap": "-1",
+        "spf_odds": [
+          2.01,
+          2.8,
+          3.64
+        ],
+        "rqspf_odds": [
+          4.35,
+          3.64,
+          1.6
+        ]
+      },
+      "market_weight": 0.88,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 2.01,
+          "fair_odd": 2.32,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.31"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 2.8,
+          "fair_odd": 3.12,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.32"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 3.64,
+          "fair_odd": 4.01,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.37"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 2.11,
+          "平局": 2.84,
+          "客胜": 3.65
+        },
+        "rqspf": {
+          "主胜": 4.11,
+          "平局": 3.48,
+          "客胜": 1.76,
+          "handicap": -1,
+          "probs": [
+            0.221,
+            0.261,
+            0.5179
+          ]
+        },
+        "scores": [
+          {
+            "score": "1:0",
+            "prob": 0.16714588600095337,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 5.44
+          },
+          {
+            "score": "0:0",
+            "prob": 0.13265546508012174,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 6.85
+          },
+          {
+            "score": "1:1",
+            "prob": 0.12703087336072458,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 7.16
+          },
+          {
+            "score": "2:0",
+            "prob": 0.10530190818060063,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 8.63
+          },
+          {
+            "score": "0:1",
+            "prob": 0.10081815346089251,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 9.02
+          },
+          {
+            "score": "2:1",
+            "prob": 0.08002945021725648,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 11.36
+          },
+          {
+            "score": "1:2",
+            "prob": 0.048271731877075334,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 18.83
+          },
+          {
+            "score": "3:0",
+            "prob": 0.04422680143585227,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 20.56
+          },
+          {
+            "score": "0:2",
+            "prob": 0.038310898315139154,
+            "home": 0,
+            "away": 2,
+            "lottery_odds": 23.73
+          },
+          {
+            "score": "3:1",
+            "prob": 0.03361236909124772,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 27.05
+          },
+          {
+            "score": "2:2",
+            "prob": 0.030411191082557465,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 29.89
+          },
+          {
+            "score": "4:0",
+            "prob": 0.013931442452293464,
+            "home": 4,
+            "away": 0,
+            "lottery_odds": 65.25
+          }
+        ],
+        "total_goals": {
+          "0": 6.85,
+          "1": 3.39,
+          "2": 3.36,
+          "3": 4.99,
+          "4": 9.88,
+          "5": 24.45,
+          "6": 72.63,
+          "7+": 99.0
+        },
+        "total_goals_most_likely": 2,
+        "ht_ft": [
+          {
+            "combo": "平胜",
+            "prob": 0.21132483751829698,
+            "lottery_odds": 4.3
+          },
+          {
+            "combo": "平平",
+            "prob": 0.1572155643367915,
+            "lottery_odds": 5.78
+          },
+          {
+            "combo": "胜胜",
+            "prob": 0.14247840414582705,
+            "lottery_odds": 6.38
+          },
+          {
+            "combo": "平负",
+            "prob": 0.12243828885421511,
+            "lottery_odds": 7.42
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.1059971131488613,
+            "lottery_odds": 8.58
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.08254974761678907,
+            "lottery_odds": 11.01
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.07661219649612455,
+            "lottery_odds": 11.87
+          },
+          {
+            "combo": "负平",
+            "prob": 0.0569958072542066,
+            "lottery_odds": 15.95
+          },
+          {
+            "combo": "负负",
+            "prob": 0.044387902314304256,
+            "lottery_odds": 20.48
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "1:0",
+            "odds": 5.44,
+            "reason": "最可能比分, 概率16.7%"
+          },
+          {
+            "type": "总进球",
+            "pick": "2球",
+            "odds": 3.36,
+            "reason": "最可能总进球, 概率27.1%"
+          },
+          {
+            "type": "总进球",
+            "pick": "0-1球",
+            "odds": 2.27,
+            "reason": "低进球警报, 0-1球概率40.1%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -87,11 +549,11 @@
     "away_team": "Universidad Central",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.3559517230886842,
-      "draw_prob": 0.3491526253187266,
-      "away_prob": 0.2948956515925892,
+      "home_prob": 0.6333049771064294,
+      "draw_prob": 0.2113721882650384,
+      "away_prob": 0.15532283462853216,
       "prediction": "主胜",
-      "confidence": 0.3559517230886842,
+      "confidence": 0.6333049771064294,
       "home_xg": 1.4175000000000002,
       "away_xg": 0.9974999999999999,
       "over25": 0.4618244419312382,
@@ -114,7 +576,235 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Libertad",
-      "away_team": "Universidad Central"
+      "away_team": "Universidad Central",
+      "goals_probs": {
+        "0": 0.08936733892175318,
+        "1": 0.2158221234960339,
+        "2": 0.260605214121461,
+        "3": 0.20978719736777612,
+        "4": 0.12665902041079485,
+        "5": 0.061176306858413916,
+        "5+": 0.036582798823767027
+      },
+      "most_likely_goals": 2,
+      "low_score_prob": 0.3051894624177871,
+      "total_xg": 2.415,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "亚自由",
+        "away": "委内瑞拉中央大学",
+        "handicap": "-1",
+        "spf_odds": [
+          1.32,
+          4.6,
+          6.5
+        ],
+        "rqspf_odds": [
+          2.18,
+          3.15,
+          2.83
+        ]
+      },
+      "market_weight": 0.88,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 1.32,
+          "fair_odd": 1.58,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.26"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 4.6,
+          "fair_odd": 4.73,
+          "tag": "fair",
+          "desc": "基本吻合"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 6.5,
+          "fair_odd": 6.44,
+          "tag": "fair",
+          "desc": "基本吻合"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 1.44,
+          "平局": 4.3,
+          "客胜": 5.85
+        },
+        "rqspf": {
+          "主胜": 4.01,
+          "平局": 3.79,
+          "客胜": 1.7,
+          "handicap": -1,
+          "probs": [
+            0.2268,
+            0.24,
+            0.5332
+          ]
+        },
+        "scores": [
+          {
+            "score": "1:0",
+            "prob": 0.12667820292158513,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 7.18
+          },
+          {
+            "score": "1:1",
+            "prob": 0.12636150741428118,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 7.19
+          },
+          {
+            "score": "2:0",
+            "prob": 0.0897831763206735,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 10.13
+          },
+          {
+            "score": "2:1",
+            "prob": 0.08955871837987181,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 10.15
+          },
+          {
+            "score": "0:0",
+            "prob": 0.08936733892175318,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 10.17
+          },
+          {
+            "score": "0:1",
+            "prob": 0.0891439205744488,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 10.2
+          },
+          {
+            "score": "1:2",
+            "prob": 0.06302280182287273,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 14.42
+          },
+          {
+            "score": "2:2",
+            "prob": 0.044667410791961064,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 20.35
+          },
+          {
+            "score": "0:2",
+            "prob": 0.04446053038650633,
+            "home": 0,
+            "away": 2,
+            "lottery_odds": 20.45
+          },
+          {
+            "score": "3:0",
+            "prob": 0.04242255081151823,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 21.43
+          },
+          {
+            "score": "3:1",
+            "prob": 0.042316494434489434,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 21.48
+          },
+          {
+            "score": "3:2",
+            "prob": 0.021105351599201603,
+            "home": 3,
+            "away": 2,
+            "lottery_odds": 43.07
+          }
+        ],
+        "total_goals": {
+          "0": 10.17,
+          "1": 4.21,
+          "2": 3.49,
+          "3": 4.33,
+          "4": 7.18,
+          "5": 14.86,
+          "6": 36.92,
+          "7+": 76.02
+        },
+        "total_goals_most_likely": 2,
+        "ht_ft": [
+          {
+            "combo": "平胜",
+            "prob": 0.2829753887548873,
+            "lottery_odds": 3.21
+          },
+          {
+            "combo": "胜胜",
+            "prob": 0.2137593559261181,
+            "lottery_odds": 4.25
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.13657001076280956,
+            "lottery_odds": 6.66
+          },
+          {
+            "combo": "平平",
+            "prob": 0.09444600833480998,
+            "lottery_odds": 9.63
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.07134443034171141,
+            "lottery_odds": 12.74
+          },
+          {
+            "combo": "平负",
+            "prob": 0.06940185392563805,
+            "lottery_odds": 13.1
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.05242609846919664,
+            "lottery_odds": 17.34
+          },
+          {
+            "combo": "负平",
+            "prob": 0.045581675606291144,
+            "lottery_odds": 19.94
+          },
+          {
+            "combo": "负负",
+            "prob": 0.0334948278692651,
+            "lottery_odds": 27.14
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "1:0",
+            "odds": 7.18,
+            "reason": "最可能比分, 概率12.7%"
+          },
+          {
+            "type": "总进球",
+            "pick": "2球",
+            "odds": 3.49,
+            "reason": "最可能总进球, 概率26.1%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -127,11 +817,11 @@
     "away_team": "Independiente Rivadavia",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.3559517230886842,
-      "draw_prob": 0.3491526253187266,
-      "away_prob": 0.2948956515925892,
+      "home_prob": 0.3741934774709092,
+      "draw_prob": 0.29646572881132816,
+      "away_prob": 0.3293407937177627,
       "prediction": "主胜",
-      "confidence": 0.3559517230886842,
+      "confidence": 0.3741934774709092,
       "home_xg": 1.4175000000000002,
       "away_xg": 0.9974999999999999,
       "over25": 0.4618244419312382,
@@ -154,7 +844,235 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Bolivar",
-      "away_team": "Independiente Rivadavia"
+      "away_team": "Independiente Rivadavia",
+      "goals_probs": {
+        "0": 0.08936733892175318,
+        "1": 0.2158221234960339,
+        "2": 0.260605214121461,
+        "3": 0.20978719736777612,
+        "4": 0.12665902041079485,
+        "5": 0.061176306858413916,
+        "5+": 0.036582798823767027
+      },
+      "most_likely_goals": 2,
+      "low_score_prob": 0.3051894624177871,
+      "total_xg": 2.415,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "玻利瓦尔",
+        "away": "里瓦达维亚独立",
+        "handicap": "-1",
+        "spf_odds": [
+          2.35,
+          3.06,
+          2.65
+        ],
+        "rqspf_odds": [
+          5.4,
+          4.1,
+          1.43
+        ]
+      },
+      "market_weight": 0.88,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 2.35,
+          "fair_odd": 2.67,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.32"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 3.06,
+          "fair_odd": 3.37,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.31"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 2.65,
+          "fair_odd": 3.04,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.39"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 2.43,
+          "平局": 3.07,
+          "客胜": 2.76
+        },
+        "rqspf": {
+          "主胜": 4.01,
+          "平局": 3.79,
+          "客胜": 1.7,
+          "handicap": -1,
+          "probs": [
+            0.2268,
+            0.24,
+            0.5332
+          ]
+        },
+        "scores": [
+          {
+            "score": "1:0",
+            "prob": 0.12667820292158513,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 7.18
+          },
+          {
+            "score": "1:1",
+            "prob": 0.12636150741428118,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 7.19
+          },
+          {
+            "score": "2:0",
+            "prob": 0.0897831763206735,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 10.13
+          },
+          {
+            "score": "2:1",
+            "prob": 0.08955871837987181,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 10.15
+          },
+          {
+            "score": "0:0",
+            "prob": 0.08936733892175318,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 10.17
+          },
+          {
+            "score": "0:1",
+            "prob": 0.0891439205744488,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 10.2
+          },
+          {
+            "score": "1:2",
+            "prob": 0.06302280182287273,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 14.42
+          },
+          {
+            "score": "2:2",
+            "prob": 0.044667410791961064,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 20.35
+          },
+          {
+            "score": "0:2",
+            "prob": 0.04446053038650633,
+            "home": 0,
+            "away": 2,
+            "lottery_odds": 20.45
+          },
+          {
+            "score": "3:0",
+            "prob": 0.04242255081151823,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 21.43
+          },
+          {
+            "score": "3:1",
+            "prob": 0.042316494434489434,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 21.48
+          },
+          {
+            "score": "3:2",
+            "prob": 0.021105351599201603,
+            "home": 3,
+            "away": 2,
+            "lottery_odds": 43.07
+          }
+        ],
+        "total_goals": {
+          "0": 10.17,
+          "1": 4.21,
+          "2": 3.49,
+          "3": 4.33,
+          "4": 7.18,
+          "5": 14.86,
+          "6": 36.92,
+          "7+": 76.02
+        },
+        "total_goals_most_likely": 2,
+        "ht_ft": [
+          {
+            "combo": "平胜",
+            "prob": 0.1671983461122853,
+            "lottery_odds": 5.44
+          },
+          {
+            "combo": "平负",
+            "prob": 0.14715712414094168,
+            "lottery_odds": 6.18
+          },
+          {
+            "combo": "平平",
+            "prob": 0.13246778076210844,
+            "lottery_odds": 6.86
+          },
+          {
+            "combo": "胜胜",
+            "prob": 0.12630148132010297,
+            "lottery_odds": 7.2
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.11116236014275716,
+            "lottery_odds": 8.18
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.10006604327416604,
+            "lottery_odds": 9.08
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.08069351906733403,
+            "lottery_odds": 11.27
+          },
+          {
+            "combo": "负负",
+            "prob": 0.0710211941617322,
+            "lottery_odds": 12.8
+          },
+          {
+            "combo": "负平",
+            "prob": 0.06393180100929957,
+            "lottery_odds": 14.22
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "1:0",
+            "odds": 7.18,
+            "reason": "最可能比分, 概率12.7%"
+          },
+          {
+            "type": "总进球",
+            "pick": "2球",
+            "odds": 3.49,
+            "reason": "最可能总进球, 概率26.1%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -167,11 +1085,11 @@
     "away_team": "Deportivo La Guaira",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.3694625486362398,
-      "draw_prob": 0.33872037812875183,
-      "away_prob": 0.2918170732350084,
+      "home_prob": 0.37906710271718147,
+      "draw_prob": 0.2941730591347591,
+      "away_prob": 0.3267598381480594,
       "prediction": "主胜",
-      "confidence": 0.3694625486362398,
+      "confidence": 0.37906710271718147,
       "home_xg": 0.8439819396577156,
       "away_xg": 0.855,
       "over25": 0.1912617344966698,
@@ -194,7 +1112,231 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Fluminense",
-      "away_team": "Deportivo La Guaira"
+      "away_team": "Deportivo La Guaira",
+      "goals_probs": {
+        "0": 0.18286960160677906,
+        "1": 0.3106921504423192,
+        "2": 0.2639301761974591,
+        "3": 0.14947086756338726,
+        "4": 0.06348707612379129,
+        "5": 0.021572679147199195,
+        "5+": 0.007977448919065044
+      },
+      "most_likely_goals": 1,
+      "low_score_prob": 0.49356175204909825,
+      "total_xg": 1.6989819396577155,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "弗鲁米嫩",
+        "away": "拉瓜伊拉",
+        "handicap": "-2",
+        "spf_odds": [
+          2.28,
+          3.55,
+          2.45
+        ],
+        "rqspf_odds": []
+      },
+      "market_weight": 0.5,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 2.28,
+          "fair_odd": 2.64,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.36"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 3.55,
+          "fair_odd": 3.4,
+          "tag": "value",
+          "desc": "竞彩高估 +0.15"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 2.45,
+          "fair_odd": 3.06,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.61"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 2.4,
+          "平局": 3.09,
+          "客胜": 2.78
+        },
+        "rqspf": {
+          "主胜": 33.44,
+          "平局": 11.05,
+          "客胜": 1.02,
+          "handicap": -2,
+          "probs": [
+            0.0272,
+            0.0823,
+            0.8905
+          ]
+        },
+        "scores": [
+          {
+            "score": "0:0",
+            "prob": 0.18286960160677906,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 4.97
+          },
+          {
+            "score": "0:1",
+            "prob": 0.15635350937379608,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 5.81
+          },
+          {
+            "score": "1:0",
+            "prob": 0.1543386410685231,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 5.89
+          },
+          {
+            "score": "1:1",
+            "prob": 0.13195953811358724,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 6.89
+          },
+          {
+            "score": "0:2",
+            "prob": 0.06684112525729782,
+            "home": 0,
+            "away": 2,
+            "lottery_odds": 13.6
+          },
+          {
+            "score": "2:0",
+            "prob": 0.06512951282657405,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 13.96
+          },
+          {
+            "score": "1:2",
+            "prob": 0.05641270254355855,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 16.12
+          },
+          {
+            "score": "2:1",
+            "prob": 0.0556857334667208,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 16.33
+          },
+          {
+            "score": "2:2",
+            "prob": 0.023805651057023144,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 38.19
+          },
+          {
+            "score": "0:3",
+            "prob": 0.01904972069832988,
+            "home": 0,
+            "away": 3,
+            "lottery_odds": 47.72
+          },
+          {
+            "score": "3:0",
+            "prob": 0.01832271085477801,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 49.62
+          },
+          {
+            "score": "1:3",
+            "prob": 0.016077620224914185,
+            "home": 1,
+            "away": 3,
+            "lottery_odds": 56.54
+          }
+        ],
+        "total_goals": {
+          "0": 4.97,
+          "1": 2.93,
+          "2": 3.44,
+          "3": 6.08,
+          "4": 14.32,
+          "5": 42.14,
+          "6": 99.0,
+          "7+": 99.0
+        },
+        "total_goals_most_likely": 1,
+        "ht_ft": [
+          {
+            "combo": "平胜",
+            "prob": 0.2054632756597862,
+            "lottery_odds": 4.42
+          },
+          {
+            "combo": "平负",
+            "prob": 0.17711150933098058,
+            "lottery_odds": 5.13
+          },
+          {
+            "combo": "平平",
+            "prob": 0.1594487094961196,
+            "lottery_odds": 5.7
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.08747420678448742,
+            "lottery_odds": 10.39
+          },
+          {
+            "combo": "胜胜",
+            "prob": 0.08612961512543986,
+            "lottery_odds": 10.55
+          },
+          {
+            "combo": "负负",
+            "prob": 0.07540368828142427,
+            "lottery_odds": 12.06
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.0742446360984829,
+            "lottery_odds": 12.24
+          },
+          {
+            "combo": "负平",
+            "prob": 0.06788390451380844,
+            "lottery_odds": 13.39
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.06684044113016523,
+            "lottery_odds": 13.6
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "0:0",
+            "odds": 4.97,
+            "reason": "最可能比分, 概率18.3%"
+          },
+          {
+            "type": "总进球",
+            "pick": "0-1球",
+            "odds": 1.84,
+            "reason": "低进球警报, 0-1球概率49.4%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -207,11 +1349,11 @@
     "away_team": "Santa Fe",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.3559517230886842,
-      "draw_prob": 0.3491526253187266,
-      "away_prob": 0.2948956515925892,
+      "home_prob": 0.4929898172411771,
+      "draw_prob": 0.2891925392014299,
+      "away_prob": 0.21781764355739305,
       "prediction": "主胜",
-      "confidence": 0.3559517230886842,
+      "confidence": 0.4929898172411771,
       "home_xg": 1.4175000000000002,
       "away_xg": 0.9974999999999999,
       "over25": 0.4618244419312382,
@@ -234,7 +1376,235 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Penarol",
-      "away_team": "Santa Fe"
+      "away_team": "Santa Fe",
+      "goals_probs": {
+        "0": 0.08936733892175318,
+        "1": 0.2158221234960339,
+        "2": 0.260605214121461,
+        "3": 0.20978719736777612,
+        "4": 0.12665902041079485,
+        "5": 0.061176306858413916,
+        "5+": 0.036582798823767027
+      },
+      "most_likely_goals": 2,
+      "low_score_prob": 0.3051894624177871,
+      "total_xg": 2.415,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "佩纳罗尔",
+        "away": "圣菲独立",
+        "handicap": "-1",
+        "spf_odds": [
+          1.73,
+          3.15,
+          4.27
+        ],
+        "rqspf_odds": [
+          3.75,
+          3.05,
+          1.87
+        ]
+      },
+      "market_weight": 0.88,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 1.73,
+          "fair_odd": 2.03,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.30"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 3.15,
+          "fair_odd": 3.46,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.31"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 4.27,
+          "fair_odd": 4.59,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.32"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 1.84,
+          "平局": 3.14,
+          "客胜": 4.17
+        },
+        "rqspf": {
+          "主胜": 4.01,
+          "平局": 3.79,
+          "客胜": 1.7,
+          "handicap": -1,
+          "probs": [
+            0.2268,
+            0.24,
+            0.5332
+          ]
+        },
+        "scores": [
+          {
+            "score": "1:0",
+            "prob": 0.12667820292158513,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 7.18
+          },
+          {
+            "score": "1:1",
+            "prob": 0.12636150741428118,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 7.19
+          },
+          {
+            "score": "2:0",
+            "prob": 0.0897831763206735,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 10.13
+          },
+          {
+            "score": "2:1",
+            "prob": 0.08955871837987181,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 10.15
+          },
+          {
+            "score": "0:0",
+            "prob": 0.08936733892175318,
+            "home": 0,
+            "away": 0,
+            "lottery_odds": 10.17
+          },
+          {
+            "score": "0:1",
+            "prob": 0.0891439205744488,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 10.2
+          },
+          {
+            "score": "1:2",
+            "prob": 0.06302280182287273,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 14.42
+          },
+          {
+            "score": "2:2",
+            "prob": 0.044667410791961064,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 20.35
+          },
+          {
+            "score": "0:2",
+            "prob": 0.04446053038650633,
+            "home": 0,
+            "away": 2,
+            "lottery_odds": 20.45
+          },
+          {
+            "score": "3:0",
+            "prob": 0.04242255081151823,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 21.43
+          },
+          {
+            "score": "3:1",
+            "prob": 0.042316494434489434,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 21.48
+          },
+          {
+            "score": "3:2",
+            "prob": 0.021105351599201603,
+            "home": 3,
+            "away": 2,
+            "lottery_odds": 43.07
+          }
+        ],
+        "total_goals": {
+          "0": 10.17,
+          "1": 4.21,
+          "2": 3.49,
+          "3": 4.33,
+          "4": 7.18,
+          "5": 14.86,
+          "6": 36.92,
+          "7+": 76.02
+        },
+        "total_goals_most_likely": 2,
+        "ht_ft": [
+          {
+            "combo": "平胜",
+            "prob": 0.22027931285715877,
+            "lottery_odds": 4.13
+          },
+          {
+            "combo": "胜胜",
+            "prob": 0.1663987961899421,
+            "lottery_odds": 5.46
+          },
+          {
+            "combo": "平平",
+            "prob": 0.12921795053536272,
+            "lottery_odds": 7.04
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.10631153564306885,
+            "lottery_odds": 8.55
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.09761112442346656,
+            "lottery_odds": 9.31
+          },
+          {
+            "combo": "平负",
+            "prob": 0.09732598762281389,
+            "lottery_odds": 9.34
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.07351996412361753,
+            "lottery_odds": 12.37
+          },
+          {
+            "combo": "负平",
+            "prob": 0.062363363022530316,
+            "lottery_odds": 14.58
+          },
+          {
+            "combo": "负负",
+            "prob": 0.04697161557276665,
+            "lottery_odds": 19.35
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "1:0",
+            "odds": 7.18,
+            "reason": "最可能比分, 概率12.7%"
+          },
+          {
+            "type": "总进球",
+            "pick": "2球",
+            "odds": 3.49,
+            "reason": "最可能总进球, 概率26.1%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null
@@ -247,11 +1617,11 @@
     "away_team": "Platense",
     "match_date": "2026-05-27",
     "prediction": {
-      "home_prob": 0.3712167487045092,
-      "draw_prob": 0.332115066344445,
-      "away_prob": 0.2966681849510459,
+      "home_prob": 0.4730914137009655,
+      "draw_prob": 0.3002162848682876,
+      "away_prob": 0.22669230143074678,
       "prediction": "主胜",
-      "confidence": 0.3712167487045092,
+      "confidence": 0.4730914137009655,
       "home_xg": 2.1309136691198147,
       "away_xg": 1.4114285714285715,
       "over25": 0.8671758873022908,
@@ -274,7 +1644,235 @@
       "league": "国际赛",
       "league_code": "INTL",
       "home_team": "Corinthians",
-      "away_team": "Platense"
+      "away_team": "Platense",
+      "goals_probs": {
+        "0": 0.028945450413835467,
+        "1": 0.10253469167262813,
+        "2": 0.18160648471677776,
+        "3": 0.21443744065658224,
+        "4": 0.1899027009982248,
+        "5": 0.13454007186804837,
+        "5+": 0.14803315967390318
+      },
+      "most_likely_goals": 3,
+      "low_score_prob": 0.1314801420864636,
+      "total_xg": 3.542342240548386,
+      "jczq": {
+        "league": "解放者杯",
+        "home": "科林蒂安",
+        "away": "普拉滕斯",
+        "handicap": "-1",
+        "spf_odds": [
+          1.54,
+          3.3,
+          5.65
+        ],
+        "rqspf_odds": [
+          3.16,
+          2.93,
+          2.12
+        ]
+      },
+      "market_weight": 0.5,
+      "odd_comparison": [
+        {
+          "label": "home",
+          "jczq_odd": 1.54,
+          "fair_odd": 2.11,
+          "tag": "avoid",
+          "desc": "竞彩低估 -0.57"
+        },
+        {
+          "label": "draw",
+          "jczq_odd": 3.3,
+          "fair_odd": 3.33,
+          "tag": "fair",
+          "desc": "基本吻合"
+        },
+        {
+          "label": "away",
+          "jczq_odd": 5.65,
+          "fair_odd": 4.41,
+          "tag": "value",
+          "desc": "竞彩高估 +1.24"
+        }
+      ],
+      "lottery": {
+        "spf": {
+          "主胜": 1.92,
+          "平局": 3.03,
+          "客胜": 4.01
+        },
+        "rqspf": {
+          "主胜": 2.79,
+          "平局": 4.24,
+          "客胜": 1.98,
+          "handicap": -1,
+          "probs": [
+            0.3256,
+            0.2145,
+            0.4599
+          ]
+        },
+        "scores": [
+          {
+            "score": "2:1",
+            "prob": 0.09275576921666247,
+            "home": 2,
+            "away": 1,
+            "lottery_odds": 9.8
+          },
+          {
+            "score": "1:1",
+            "prob": 0.0870572755347482,
+            "home": 1,
+            "away": 1,
+            "lottery_odds": 10.44
+          },
+          {
+            "score": "3:1",
+            "prob": 0.06588484550450298,
+            "home": 3,
+            "away": 1,
+            "lottery_odds": 13.8
+          },
+          {
+            "score": "2:0",
+            "prob": 0.06571765025472037,
+            "home": 2,
+            "away": 0,
+            "lottery_odds": 13.83
+          },
+          {
+            "score": "2:2",
+            "prob": 0.06545907141861608,
+            "home": 2,
+            "away": 2,
+            "lottery_odds": 13.89
+          },
+          {
+            "score": "1:0",
+            "prob": 0.061680255945671794,
+            "home": 1,
+            "away": 0,
+            "lottery_odds": 14.74
+          },
+          {
+            "score": "1:2",
+            "prob": 0.061437563020236584,
+            "home": 1,
+            "away": 2,
+            "lottery_odds": 14.8
+          },
+          {
+            "score": "3:0",
+            "prob": 0.046679546410072964,
+            "home": 3,
+            "away": 0,
+            "lottery_odds": 19.48
+          },
+          {
+            "score": "3:2",
+            "prob": 0.04649587668460639,
+            "home": 3,
+            "away": 2,
+            "lottery_odds": 19.55
+          },
+          {
+            "score": "0:1",
+            "prob": 0.040854435726956344,
+            "home": 0,
+            "away": 1,
+            "lottery_odds": 22.25
+          },
+          {
+            "score": "4:1",
+            "prob": 0.03509872946834815,
+            "home": 4,
+            "away": 1,
+            "lottery_odds": 25.9
+          },
+          {
+            "score": "2:3",
+            "prob": 0.03079693455313938,
+            "home": 2,
+            "away": 3,
+            "lottery_odds": 29.52
+          }
+        ],
+        "total_goals": {
+          "0": 31.41,
+          "1": 8.87,
+          "2": 5.01,
+          "3": 4.24,
+          "4": 4.79,
+          "5": 6.76,
+          "6": 11.45,
+          "7+": 13.25
+        },
+        "total_goals_most_likely": 3,
+        "ht_ft": [
+          {
+            "combo": "胜胜",
+            "prob": 0.19633371754682544,
+            "lottery_odds": 4.63
+          },
+          {
+            "combo": "平胜",
+            "prob": 0.16651970499648835,
+            "lottery_odds": 5.46
+          },
+          {
+            "combo": "胜平",
+            "prob": 0.12459025374225971,
+            "lottery_odds": 7.3
+          },
+          {
+            "combo": "负胜",
+            "prob": 0.11023478229079928,
+            "lottery_odds": 8.25
+          },
+          {
+            "combo": "平平",
+            "prob": 0.10567075567980644,
+            "lottery_odds": 8.6
+          },
+          {
+            "combo": "胜负",
+            "prob": 0.09407767926068622,
+            "lottery_odds": 9.66
+          },
+          {
+            "combo": "平负",
+            "prob": 0.07979163025580382,
+            "lottery_odds": 11.39
+          },
+          {
+            "combo": "负平",
+            "prob": 0.06995323915036575,
+            "lottery_odds": 13.0
+          },
+          {
+            "combo": "负负",
+            "prob": 0.05282145431414245,
+            "lottery_odds": 17.21
+          }
+        ],
+        "suggestions": [
+          {
+            "type": "比分",
+            "pick": "2:1",
+            "odds": 9.8,
+            "reason": "最可能比分, 概率9.3%"
+          },
+          {
+            "type": "总进球",
+            "pick": "3球",
+            "odds": 4.24,
+            "reason": "最可能总进球, 概率21.4%"
+          }
+        ]
+      }
     },
     "actual": null,
     "analysis": null

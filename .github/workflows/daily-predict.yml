@@ -54,6 +54,10 @@ jobs:
         env:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
 
+      - name: Fetch lottery data from 500.com
+        run: python scripts/lottery_fetcher.py
+        continue-on-error: true
+
       - name: Run prediction
         run: python scripts/run_predict.py
 
