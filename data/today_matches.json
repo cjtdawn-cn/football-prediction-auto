@@ -1,9 +1,13 @@
 {
-  "date": "2026-05-25",
+  "date": "2026-05-27",
   "matches": [
-    {"lg": "D1", "home": "Paderborn", "away": "Wolfsburg"},
-    {"lg": "NOR", "home": "Vålerenga", "away": "Start"},
-    {"lg": "BRA", "home": "Coritiba", "away": "Bahia"},
-    {"lg": "USA", "home": "Seattle Sounders", "away": "LAFC"}
-  ]
+    {"lg": "INTL", "home": "Crystal Palace", "away": "Rayo Vallecano", "neutral": true},
+    {"lg": "INTL", "home": "Independiente del Valle", "away": "Rosario Central"},
+    {"lg": "INTL", "home": "Libertad", "away": "Universidad Central"},
+    {"lg": "INTL", "home": "Bolivar", "away": "Independiente Rivadavia"},
+    {"lg": "INTL", "home": "Fluminense", "away": "Deportivo La Guaira"},
+    {"lg": "INTL", "home": "Penarol", "away": "Santa Fe"},
+    {"lg": "INTL", "home": "Corinthians", "away": "Platense"}
+  ],
+  "fetched_at": "2026-05-27T18:00:00+08:00"
 }
