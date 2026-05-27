@@ -10,10 +10,10 @@
  联赛       主队                 客队                     主胜     平局     客胜     推荐
  --------------------------------------------------------------------------------------------
  国际赛      Crystal Palace     Rayo Vallecano     51.0% 25.4% 23.7%     主胜
- 国际赛      Independiente del Valle Rosario Central    43.0% 32.0% 24.9%     主胜
+ 国际赛      Independiente del Valle Rosario Central    42.3% 33.0% 24.7%     主胜
  国际赛      Libertad           Universidad Central 63.3% 21.1% 15.5%     主胜
- 国际赛      Bolivar            Independiente Rivadavia 37.4% 29.6% 32.9%     主胜
- 国际赛      Fluminense         Deportivo La Guaira 37.9% 29.4% 32.7%     主胜
+ 国际赛      Bolivar            Independiente Rivadavia 37.0% 30.6% 32.4%     主胜
+ 国际赛      Fluminense         Deportivo La Guaira 37.6% 29.8% 32.7%     主胜
  国际赛      Penarol            Santa Fe           49.3% 28.9% 21.8%     主胜
  国际赛      Corinthians        Platense           47.3% 30.0% 22.7%     主胜
 
@@ -86,18 +86,18 @@
   2     国际赛      Crystal Palace     Rayo Vallecano     3(51%) 51.0%
   3     国际赛      Penarol            Santa Fe           3(49%) 49.3%
   4     国际赛      Corinthians        Platense           3(47%) 47.3%
-  5     国际赛      Independiente del Valle Rosario Central    3(43%) 43.0%
-  6     国际赛      Fluminense         Deportivo La Guaira 3(38%) 37.9%
-  7     国际赛      Bolivar            Independiente Rivadavia 3(37%) 37.4%
+  5     国际赛      Independiente del Valle Rosario Central    3(42%) 42.3%
+  6     国际赛      Fluminense         Deportivo La Guaira 3(38%) 37.6%
+  7     国际赛      Bolivar            Independiente Rivadavia 3(37%) 37.0%
 
   任选9场复式投注: 3333333
   [1] 国际赛 Libertad vs Universidad Central → 主胜 (63.3%)
   [2] 国际赛 Crystal Palace vs Rayo Vallecano → 主胜 (51.0%)
   [3] 国际赛 Penarol vs Santa Fe → 主胜 (49.3%)
   [4] 国际赛 Corinthians vs Platense → 主胜 (47.3%)
-  [5] 国际赛 Independiente del Valle vs Rosario Central → 主胜 (43.0%)
-  [6] 国际赛 Fluminense vs Deportivo La Guaira → 主胜 (37.9%)
-  [7] 国际赛 Bolivar vs Independiente Rivadavia → 主胜 (37.4%)
+  [5] 国际赛 Independiente del Valle vs Rosario Central → 主胜 (42.3%)
+  [6] 国际赛 Fluminense vs Deportivo La Guaira → 主胜 (37.6%)
+  [7] 国际赛 Bolivar vs Independiente Rivadavia → 主胜 (37.0%)
 
   ▼ 冷门预警:
 
